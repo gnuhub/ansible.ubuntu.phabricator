@@ -34,3 +34,5 @@
 
 - name: Configuring apache2
   template: src=apache2/000-default.j2 owner=root group=root dest=/etc/apache2/sites-available/000-default.conf
+  notify:
+  - restart apache2
