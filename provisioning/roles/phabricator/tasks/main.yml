@@ -38,6 +38,6 @@
   - restart apache2
 
 - name: Runnning the storage upgrade script to setup Phabricator's database schema.
-command: ./bin/storage upgrade --force
+  command: ./bin/storage upgrade --force
   args:
     chdir: "{{phabricator_checkout_dir}}"
