@@ -1,2 +1,4 @@
 ---
 phabricator_install_dir: "/home/vagrant/phabricator-install"
+phabricator_checkout_dir: "{{phabricator_install_dir}}/phabricator"
+phabricator_webroot_dir: "{{phabricator_checkout_dir}}/webroot"

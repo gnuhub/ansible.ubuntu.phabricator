@@ -30,4 +30,4 @@
 
 - name: Checking out phabricator
   git: repo=https://github.com/phacility/phabricator.git
-       dest={{phabricator_install_dir}}/phabricator
+       dest={{phabricator_checkout_dir}}
