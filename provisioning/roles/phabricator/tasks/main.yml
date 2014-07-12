@@ -1,0 +1,33 @@
+---
+- name: Installing dependencies
+  apt: pkg={{ item }} update_cache=yes
+  with_items:
+    - git
+    - mysql-server 
+    - apache2 
+    - dpkg-dev 
+    - php5 
+    - php5-mysql 
+    - php5-gd 
+    - php5-dev 
+    - php5-curl 
+    - php-apc 
+    - php5-cli 
+    - php5-json
+  sudo: yes
+
+- name: Enable mod_rewrite
+  command: a2enmod rewrite
+  sudo: yes
+
+- name: Checking out libphutil
+  git: repo=https://github.com/phacility/libphutil.git
+       dest={{phabricator_install_dir}}/libphutil
+
+- name: Checking out arcanist
+  git: repo=https://github.com/phacility/arcanist.git
+       dest={{phabricator_install_dir}}/arcanist
+
+- name: Checking out phabricator
+  git: repo=https://github.com/phacility/phabricator.git
+       dest={{phabricator_install_dir}}/phabricator
