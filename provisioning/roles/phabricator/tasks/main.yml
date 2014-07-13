@@ -14,6 +14,7 @@
     - php-apc 
     - php5-cli 
     - php5-json
+    - sendmail
   sudo: yes
 
 - name: Enable mod_rewrite
