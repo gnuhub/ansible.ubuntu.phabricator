@@ -12,7 +12,7 @@
   command: /bin/cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
 
 - name: Update timezone to {{ timezone }}
-  template: src=default-timezone.j2 dest=/etc/timezone
+  template: src=timezone/default-timezone.j2 dest=/etc/timezone
   notify:
     - update tzdata
 
