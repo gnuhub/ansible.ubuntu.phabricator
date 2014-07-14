@@ -2,3 +2,7 @@
 phabricator_install_dir: "/var/www/html/phabricator-server"
 phabricator_checkout_dir: "{{phabricator_install_dir}}/phabricator"
 phabricator_webroot_dir: "{{phabricator_checkout_dir}}/webroot"
+
+language: language-pack-en
+locale: en_US.UTF-8
+timezone: America/Sao_Paulo
