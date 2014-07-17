@@ -1,6 +1,6 @@
 ---
-- name: Update and upgrade system
-  apt: upgrade=dist update-cache=yes
+- name: Update system
+  apt: upgrade=full update-cache=yes
 
 - name: Update language to {{ language }}
   apt: pkg={{ language }}
