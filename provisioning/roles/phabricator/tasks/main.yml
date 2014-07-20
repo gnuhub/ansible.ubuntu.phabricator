@@ -50,15 +50,31 @@
   git: repo=https://github.com/phacility/phabricator.git
        dest={{phabricator_checkout_dir}}
 
-- name: Configuring apache2
-  template: src=apache2/000-default.j2 owner=root group=root dest=/etc/apache2/sites-available/000-default.conf
+- name: Enforcing STRICT tables on MySQL
+  copy: src=mysql/my.cnf dest=/etc/mysql/my.cnf
   notify:
-    - restart apache2
+    - restart mysql
 
-#- name: Enforcing STRICT tables on MySQL
-#  copy: src=mysql/
+- name: Creating phabricator default local repository 
+  file: path=/var/repo state=directory
+
+- name: Adding phabricator daemons on upstart
+  template: src=phd/phd.j2 owner=root group=root dest=/etc/init/phd.conf
+
+- name: Starting phabricator daemons
+  service: name=phd state=started
 
 - name: Runnning the storage upgrade script to setup Phabricator's database schema.
   command: ./bin/storage upgrade --force
   args:
     chdir: "{{phabricator_checkout_dir}}"
+
+- name: Configuring phabricator timezone
+  command: ./bin/config set phabricator.timezone {{phabricator_timezone}}
+  args:
+    chdir: "{{phabricator_checkout_dir}}"
+
+- name: Configuring apache2
+  template: src=apache2/000-default.j2 owner=root group=root dest=/etc/apache2/sites-available/000-default.conf
+  notify:
+    - restart apache2
