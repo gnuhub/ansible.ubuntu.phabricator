@@ -2,16 +2,16 @@
 - name: Update system
   apt: upgrade=full update-cache=yes
 
-- name: Update language to {{ language }}
-  apt: pkg={{ language }}
+- name: Update language to {{ phabricator_language }}
+  apt: pkg={{ phabricator_language }}
 
-- name: Update locale to {{ locale }}
-  command: /usr/sbin/update-locale LANG={{ locale }} LC_ALL={{ locale }}
+- name: Update locale to {{ phabricator_locale }}
+  command: /usr/sbin/update-locale LANG={{ phabricator_locale }} LC_ALL={{ phabricator_locale }}
 
-- name: Update localtime to {{ timezone }}
-  command: /bin/cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
+- name: Update localtime to {{ phabricator_timezone }}
+  command: /bin/cp /usr/share/zoneinfo/{{ phabricator_timezone }} /etc/localtime
 
-- name: Update timezone to {{ timezone }}
+- name: Update timezone to {{ phabricator_timezone }}
   template: src=timezone/default-timezone.j2 dest=/etc/timezone
   notify:
     - update tzdata
@@ -60,6 +60,9 @@
   template: src=apache2/000-default.j2 owner=root group=root dest=/etc/apache2/sites-available/000-default.conf
   notify:
     - restart apache2
+
+#- name: Enforcing STRICT tables on MySQL
+#  copy: src=mysql/
 
 - name: Runnning the storage upgrade script to setup Phabricator's database schema.
   command: ./bin/storage upgrade --force
