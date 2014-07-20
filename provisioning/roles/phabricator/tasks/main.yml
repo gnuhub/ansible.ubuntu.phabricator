@@ -16,12 +16,6 @@
   notify:
     - update tzdata
 
-- name: Stopping puppet agent and chef client
-  service: name={{ item }} state=stopped enabled=no
-  with_items:
-    - puppet
-    - chef-client
-
 - name: Installing dependencies
   apt: pkg={{ item }}
   with_items:
