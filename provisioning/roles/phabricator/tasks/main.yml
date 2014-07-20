@@ -62,7 +62,7 @@
   template: src=phd/phd.j2 owner=root group=root dest=/etc/init/phd.conf
 
 - name: Starting phabricator daemons
-  service: name=phd state=started
+  service: name=phd enabled=yes state=started
 
 - name: Runnning the storage upgrade script to setup Phabricator's database schema.
   command: ./bin/storage upgrade --force
