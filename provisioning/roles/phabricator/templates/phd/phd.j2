@@ -1,1 +1,7 @@
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 10 5
+
 exec {{phabricator_checkout_dir}}/bin/phd start
