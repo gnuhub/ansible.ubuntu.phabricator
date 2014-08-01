@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 参数 $1 BACKUP_BUMBER
-
+set -x
 # 恢复数据库
 cd /vagrant/backup/${1}
 gunzip -c backup.sql.gz | mysql
