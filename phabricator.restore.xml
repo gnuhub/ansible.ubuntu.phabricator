@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty plugin="hipchat@0.1.6">
+      <room></room>
+      <startNotification>false</startNotification>
+      <notifySuccess>false</notifySuccess>
+      <notifyAborted>false</notifyAborted>
+      <notifyNotBuilt>false</notifyNotBuilt>
+      <notifyUnstable>false</notifyUnstable>
+      <notifyFailure>false</notifyFailure>
+      <notifyBackToNormal>false</notifyBackToNormal>
+    </jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>BUCKUP_NUMBER</name>
+          <description>备份的文件目录 号码</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/usr/bin/env bash
+## 为了任务结束不关闭vagrant
+BUILD_NUMBER2=${BUILD_NUMBER}
+BUILD_NUMBER=dontkillme
+set -x 
+cd ~/gnuhub/git/ansible.ubuntu.phabricator
+# 全新安装
+#vagrant destroy -f
+vagrant halt -f
+vagrant up --provision
+
+# 开始恢复
+
+vagrant ssh -c &quot;sudo su -l root -c &apos;/vagrant/phabricator.restore.sh ${BUCKUP_NUMBER}&apos;&quot;
+
+# 保存jenkins此时配置
+jenkins.cli get-job phabricator.restore &gt; phabricator.restore.xml
+
+# 防止本地没有提交代码
+git add .
+git commit -a -m &quot;jenkins backup&quot;
+# 用分支名与jenkins build对应
+git checkout -b restore_${BUILD_NUMBER}
+git push origin HEAD
+# 回到主开发分支
+git checkout master
+
+
+
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
