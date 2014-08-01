@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -x
-
+/var/www/html/phabricator-server/libphutil/scripts/build_xhpast.sh
 BACKUP_DIR=${1}
 
 if [ -z ${1} ];then
