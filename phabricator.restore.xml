@@ -19,6 +19,16 @@
         <hudson.model.StringParameterDefinition>
           <name>BUCKUP_NUMBER</name>
           <description>备份的文件目录 号码</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>VAGRANT_DESTROY</name>
+          <description>VAGRANT_DESTROY 将删除现在的系统 权限构建系统</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GIT_MESSAGE</name>
+          <description>jenkins提交代码时的附加信息</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -42,7 +52,10 @@ BUILD_NUMBER=dontkillme
 set -x 
 cd ~/gnuhub/git/ansible.ubuntu.phabricator
 # 全新安装
-#vagrant destroy -f
+if [ x&quot;${VAGRANT_DESTROY}&quot; = x&quot;true&quot; ];then
+   vagrant destroy -f
+fi
+# 防止机器正在运行
 vagrant halt -f
 vagrant up --provision
 
@@ -55,7 +68,7 @@ jenkins.cli get-job phabricator.restore &gt; phabricator.restore.xml
 
 # 防止本地没有提交代码
 git add .
-git commit -a -m &quot;jenkins backup&quot;
+git commit -a -m &quot;jenkins commit: ${GIT_MESSAGE}&quot;
 # 用分支名与jenkins build对应
 git checkout -b restore_${BUILD_NUMBER}
 git push origin HEAD
