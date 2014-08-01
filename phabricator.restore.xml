@@ -70,7 +70,7 @@ jenkins.cli get-job phabricator.restore &gt; phabricator.restore.xml
 git add .
 git commit -a -m &quot;jenkins commit: ${GIT_MESSAGE}&quot;
 # 用分支名与jenkins build对应
-git checkout -b restore_${BUILD_NUMBER}
+git checkout -b restore_${BUILD_NUMBER2}
 git push origin HEAD
 # 回到主开发分支
 git checkout master
