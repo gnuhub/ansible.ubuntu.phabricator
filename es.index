@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+vagrant ssh -c "sudo su -l root -c '/var/www/html/phabricator-server/phabricator/bin/search index --all'"
