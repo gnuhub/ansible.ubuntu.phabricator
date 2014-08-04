@@ -46,6 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "/Users/stallman/gnuhub/data/phabricator/files", "/opt/files",owner: "www-data", group: "www-data",create:true
+  config.vm.synced_folder "/Users/stallman/gnuhub/data/phabricator/repo", "/var/repo",owner: "www-data", group: "www-data",create:true
+  
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
