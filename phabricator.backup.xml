@@ -31,6 +31,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/usr/bin/env bash
+. ${HOME}/bin/config.d/gnuhub_env
 cd ~/gnuhub/git/ansible.ubuntu.phabricator
 chmod +x jenkins_ci.sh
 ./jenkins_ci.sh
