@@ -62,7 +62,9 @@ vagrant up --provision
 # 开始恢复
 
 vagrant ssh -c &quot;sudo su -l root -c &apos;/vagrant/phabricator.restore.sh ${BUCKUP_NUMBER}&apos;&quot;
-
+sleep
+# 索引数据
+./run es.index
 # 保存jenkins此时配置
 jenkins.cli get-job phabricator.restore &gt; phabricator.restore.xml
 
