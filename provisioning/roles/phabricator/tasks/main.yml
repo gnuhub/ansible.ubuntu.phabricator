@@ -78,8 +78,3 @@
   template: src=apache2/000-default.j2 owner=root group=root dest=/etc/apache2/sites-available/000-default.conf
   notify:
     - restart apache2
-- name: instaling gems
-  gem: pkg={{ item }}
-  with_items:
-  - cucumber
-  - aruba
