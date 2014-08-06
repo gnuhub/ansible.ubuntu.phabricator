@@ -5,4 +5,4 @@
 
   roles:
     - phabricator
-    - eduardodeoh.ruby
+    - { role: eduardodeoh.ruby, rbenv_users: ["vagrant"] }
