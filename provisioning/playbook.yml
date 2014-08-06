@@ -4,5 +4,6 @@
   sudo: yes
 
   roles:
+    - Ansibles.git
     - { role: eduardodeoh.ruby, rbenv_users: ["vagrant"] }
     - phabricator
