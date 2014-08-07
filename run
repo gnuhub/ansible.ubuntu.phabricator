@@ -3,7 +3,7 @@ set -x
 function s.upgrade
 {
 	s.stop
-	vagrant ssh -c "sudo su -l root -c '/var/www/html/phabricator-server/phabricator/bin/storage upgrade'"
+	vagrant ssh -c "sudo su -l root -c '/var/www/html/phabricator-server/phabricator/bin/storage upgrade --force'"
 	s.start
 }
 function es.index
