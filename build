@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+vagrant halt -f
+vagrant up --provision
+vagrant package --output HB_${BUILD_NUMBER}.box
+vagrant box add HB_${BUILD_NUMBER} HB_${BUILD_NUMBER}.box
