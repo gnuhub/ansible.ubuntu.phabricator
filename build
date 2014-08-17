@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+vagrant destroy -f
 vagrant halt -f
 vagrant up --provision
 vagrant package --output HB_${BUILD_NUMBER}.box
